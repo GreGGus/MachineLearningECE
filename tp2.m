@@ -24,7 +24,7 @@ res_test=[];
 for i=1:256
 
 	iteration = strcat("Calculs pour ",int2str(i));
-	waitbar(i / 150,h,iteration);
+	waitbar(i / 256,h,iteration);
 
 
 bestPix=resSort(1:i);
