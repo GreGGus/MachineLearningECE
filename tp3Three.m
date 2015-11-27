@@ -13,18 +13,18 @@ res_app=[];
 res_test=[];
 
 r=0;
-x=4;
+x=1;
 min1=1;
 min2=1;
 min3=1;
-max1=10;
-max2=10;
-max3=10;
+max1=400;
+max2=400;
+max3=400;
 a=0;
 b=0;
 
 
-bestPix=resSort(1:100);
+bestPix=resSort(1:160);
 
 	%% On recupere toutes la lignes des 30 meilleurs colonnes - pixel
 	vall_app=xapp(:,bestPix);
@@ -40,7 +40,7 @@ bestPix=resSort(1:100);
 	b = test_classif_pmc(vall_app,Ya,pmc);
 
 	if(a>b)
-		max1=max1/2;
+		max1=max1-(max1-min1)/2;
 
 		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,min2,min3});
 		a = test_classif_pmc(vall_app,Ya,pmc);
@@ -50,25 +50,32 @@ bestPix=resSort(1:100);
 
 		if(a>b)
 
-			max2=max2/2;
+			max2=max2-(max2-min2)/2;
 			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,min2,min3});
 			a = test_classif_pmc(vall_app,Ya,pmc);
 
 			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,min2,max3});
 			b = test_classif_pmc(vall_app,Ya,pmc);
 
-			if(a>b )
-				max3=max3/2;
+			if(a>b && a>r)
+				max3=max3-(max3-min3)/2;
 				r=a;
 				printf(" %d %d %d %f", min1,min2,min3,r)
-			else
-				min3=max3/2;
+				RES = [RES; r ,min1,min2,min3];
+
+
+			elseif( a<b && b>r)
+				min3=min3 + (max3-min3)/2;
 				r=b;
 				printf(" %d %d %d %f", min1,min2,max3,r)
+				RES = [RES; r ,min1,min2,max3];
+
 
 			endif
-		else 
-			min2=max2/2;
+		
+		elseif(a<b) 
+
+			min2=min2+(max2-min2)/2;
 			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,max2,min3});
 			a = test_classif_pmc(vall_app,Ya,pmc);
 
@@ -76,21 +83,25 @@ bestPix=resSort(1:100);
 			b = test_classif_pmc(vall_app,Ya,pmc);
 
 			if(a>b )
-				max3=max3/2;
+				max3=max3 -(max3-min3)/2;
 				r=a;
 				printf(" %d %d %d %f", min1,max2,min3,r)
+				RES = [RES; r ,min1,max2,min3];
+
 			else
-				min3=max3/2;
+				min3=min3+(max3-min3)/2;
 				r=b;
 				printf(" %d %d %d %f", min1,max2,max3,r)
+				RES = [RES; r ,min1,max2,max3];
+
 
 			endif
 
 		endif
 
 
-	else 	  	
-		min1=max1/2;
+	elseif(b>a) 	
+	min1=min1 + (max1-min1)/2;
 
 		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,min2,min3});
 		a = test_classif_pmc(vall_app,Ya,pmc);
@@ -100,7 +111,7 @@ bestPix=resSort(1:100);
 
 		if(a>b)
 
-			max2=max2/2;
+			max2=max2-(max2-min2)/2;
 			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,min2,min3});
 			a = test_classif_pmc(vall_app,Ya,pmc);
 
@@ -108,31 +119,38 @@ bestPix=resSort(1:100);
 			b = test_classif_pmc(vall_app,Ya,pmc);
 
 			if(a>b )
-				max3=max3/2;
+				max3=max3-(max3-min3)/2;
 				r=a;
 				printf(" %d %d %d %f", max1,min2,min3,r)
+				RES = [RES; r ,max1,min2,min3];
 			else
-				min3=max3/2;
+				min3=min3 + (max3-min3)/2;
 				r=b;
 				printf(" %d %d %d %f", max1,min2,max3,r)
+				RES = [RES; r ,max1,min2,max3];
+
 
 			endif
-		else 
-			min2=max2/2;
+		elseif(a<b)
+			min2=min2+(max2-min2)/2;
 			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,max2,min3});
 			a = test_classif_pmc(vall_app,Ya,pmc);
 
 			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,max2,max3});
 			b = test_classif_pmc(vall_app,Ya,pmc);
 
-			if(a>b )
-				max3=max3/2;
+			if(a>b && a>r)
+				max3 = max3 - (max3-min3)/2;
 				r=a;
 				printf(" %d %d %d %f", max1,max2,min3,r)
-			else
-				min3=max3/2;
+				RES = [RES; r ,max1,max2,min3];
+
+			elseif (a<b && b>r)
+				min3=min3+(max3-min3)/2;
 				r=b;
 				printf(" %d %d %d %f", max1,max2,max3,r)
+				RES = [RES; r ,max1,max2,max3];
+
 
 			endif
 
@@ -147,13 +165,13 @@ bestPix=resSort(1:100);
 				%res_app=[res_app,r];
 				%res_test=[res_test,ErrorRateTest];
 
-				RES = [RES; r];
+			
 
 	endwhile
 
 
 
-save dataSetTP3ThreeAlgo.dat RES res_app res_test
+save dataSetTP3ThreeAlgoTest.dat RES res_app res_test
 
 %% Feature selection
 %% Courbe / Principe, comment vous avez fait vos choix ?

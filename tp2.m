@@ -13,7 +13,7 @@ RES = [];
 res_app=[];
 res_test=[];
 
-for i=1:5
+for i=1:256
 
 	iteration = strcat("Calculs pour ",int2str(i));
 	waitbar(i / 256,h,iteration);
@@ -29,7 +29,6 @@ for i=1:5
 	%% Base log -> Dichotomie
 
 	[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{10,10});
-	%% 	[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{k,l,m});
 
 
 
