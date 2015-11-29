@@ -17,14 +17,14 @@ x=1;
 min1=1;
 min2=1;
 min3=1;
-max1=160;
-max2=160;
-max3=20;
+max1=50;
+max2=50;
+max3=50;
 a=0;
 b=0;
 
 
-bestPix=resSort(1:160);
+bestPix=resSort(1:120);
 
 	%% On recupere toutes la lignes des 30 meilleurs colonnes - pixel
 	vall_app=xapp(:,bestPix);
@@ -171,7 +171,7 @@ bestPix=resSort(1:160);
 
 
 
-save dataSetTP3ThreeAlgoTest5.dat RES res_app res_test
+save dataSetTP3ThreeAlgoTest6.dat RES res_app res_test
 
 %% Feature selection
 %% Courbe / Principe, comment vous avez fait vos choix ?
@@ -180,3 +180,4 @@ save dataSetTP3ThreeAlgoTest5.dat RES res_app res_test
 %% 3 Pages.
 %% Note qui la écrit.
 %%
+
