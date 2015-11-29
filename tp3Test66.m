@@ -31,7 +31,7 @@ res_test=[];
 	%% Base log -> Dichotomie
 
 	%%  [TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{10,10});
-	 	[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{l,50,20});
+	 	[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{l,60,10});
 
 
 
@@ -41,12 +41,12 @@ res_test=[];
 	res_app=[res_app,ErrorRateApp];
 	res_test=[res_test,ErrorRateTest];
 
-	RES = [RES;[l,35,10 ,ErrorRateApp, ErrorRateTest]];
+	RES = [RES;[l,60,10 ,ErrorRateApp, ErrorRateTest]];
 
 end
 
 
-save dataSetTP3FixedFirstAndLast5.dat RES res_app res_test
+save dataSetTP3FixedFirstAndLast653.dat RES res_app res_test
 
 %% Feature selection
 %% Courbe / Principe, comment vous avez fait vos choix ?
