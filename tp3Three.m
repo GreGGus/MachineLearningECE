@@ -2,8 +2,7 @@ clear all
 close all
 
 source "pmc.m";
-load "dataSetTP1.dat"
-load "dataInvNormRandDiscri.dat"
+load "dataTest3.dat"
 
 
 resSort=sortrows(RES,-3);
@@ -17,9 +16,9 @@ x=1;
 min1=1;
 min2=1;
 min3=1;
-max1=50;
-max2=50;
-max3=50;
+max1=100;
+max2=100;
+max3=100;
 a=0;
 b=0;
 
@@ -33,39 +32,33 @@ bestPix=resSort(1:120);
 	while (max1 >= min1 + x )
 
 
-	[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,min2,min3});
+	[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{min1,min2,min3});
 	a = test_classif_pmc(vall_test,Yt,pmc);
 
-	[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,min2,min3});
+	[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{max1,min2,min3});
 	b = test_classif_pmc(vall_test,Yt,pmc);
 
 	if(a>b)
-		max1=max1-(max1-min1)/2;
-
-		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,min2,min3});
-		a = test_classif_pmc(vall_test,Yt,pmc);
-
-		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,max2,min3});
+		max1=floor(max1-(max1-min1)/2);
+		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{min1,max2,min3});
 		b = test_classif_pmc(vall_test,Yt,pmc);
 
 		if(a>b)
 
-			max2=max2-(max2-min2)/2;
-			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,min2,min3});
-			a = test_classif_pmc(vall_test,Yt,pmc);
+			max2=floor(max2-(max2-min2)/2);
 
-			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,min2,max3});
+			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{min1,min2,max3});
 			b = test_classif_pmc(vall_test,Yt,pmc);
 
 			if(a>b && a>r)
-				max3=max3-(max3-min3)/2;
+				max3=floor(max3-(max3-min3)/2);
 				r=a;
 				printf(" %d %d %d %f", min1,min2,min3,r)
 				RES = [RES; r ,min1,min2,min3];
 
 
 			elseif( a<b && b>r)
-				min3=min3 + (max3-min3)/2;
+				min3=floor(min3 + (max3-min3)/2);
 				r=b;
 				printf(" %d %d %d %f", min1,min2,max3,r)
 				RES = [RES; r ,min1,min2,max3];
@@ -75,21 +68,21 @@ bestPix=resSort(1:120);
 		
 		elseif(a<b) 
 
-			min2=min2+(max2-min2)/2;
-			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,max2,min3});
+			min2=floor(min2+(max2-min2)/2);
+			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{min1,max2,min3});
 			a = test_classif_pmc(vall_test,Yt,pmc);
 
-			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{min1,max2,max3});
+			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{min1,max2,max3});
 			b = test_classif_pmc(vall_test,Yt,pmc);
 
 			if(a>b )
-				max3=max3 -(max3-min3)/2;
+				max3=floor(max3 -(max3-min3)/2);
 				r=a;
 				printf(" %d %d %d %f", min1,max2,min3,r)
 				RES = [RES; r ,min1,max2,min3];
 
 			else
-				min3=min3+(max3-min3)/2;
+				min3=floor(min3+(max3-min3)/2);
 				r=b;
 				printf(" %d %d %d %f", min1,max2,max3,r)
 				RES = [RES; r ,min1,max2,max3];
@@ -101,30 +94,30 @@ bestPix=resSort(1:120);
 
 
 	elseif(b>a) 	
-	min1=min1 + (max1-min1)/2;
+	min1=floor(min1 + (max1-min1)/2);
 
-		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,min2,min3});
+		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{max1,min2,min3});
 		a = test_classif_pmc(vall_test,Yt,pmc);
 
-		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,max2,min3});
+		[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{max1,max2,min3});
 		b = test_classif_pmc(vall_test,Yt,pmc);
 
 		if(a>b)
 
-			max2=max2-(max2-min2)/2;
-			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,min2,min3});
+			max2=floor(max2-(max2-min2)/2);
+			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{max1,min2,min3});
 			a = test_classif_pmc(vall_test,Yt,pmc);
 
-			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,min2,max3});
+			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{max1,min2,max3});
 			b = test_classif_pmc(vall_test,Yt,pmc);
 
 			if(a>b )
-				max3=max3-(max3-min3)/2;
+				max3=floor(max3-(max3-min3)/2);
 				r=a;
 				printf(" %d %d %d %f", max1,min2,min3,r)
 				RES = [RES; r ,max1,min2,min3];
 			else
-				min3=min3 + (max3-min3)/2;
+				min3=floor(min3 + (max3-min3)/2);
 				r=b;
 				printf(" %d %d %d %f", max1,min2,max3,r)
 				RES = [RES; r ,max1,min2,max3];
@@ -132,21 +125,21 @@ bestPix=resSort(1:120);
 
 			endif
 		elseif(a<b)
-			min2=min2+(max2-min2)/2;
-			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,max2,min3});
+			min2=floor(min2+(max2-min2)/2);
+			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{max1,max2,min3});
 			a = test_classif_pmc(vall_test,Yt,pmc);
 
-			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.01,{max1,max2,max3});
+			[TEA, TET, pmc]=apprend_pmc(vall_app,Ya,vall_test,Yt,0.023,{max1,max2,max3});
 			b = test_classif_pmc(vall_test,Yt,pmc);
 
 			if(a>b && a>r)
-				max3 = max3 - (max3-min3)/2;
+				max3 = floor(max3 - (max3-min3)/2);
 				r=a;
 				printf(" %d %d %d %f", max1,max2,min3,r)
 				RES = [RES; r ,max1,max2,min3];
 
 			elseif (a<b && b>r)
-				min3=min3+(max3-min3)/2;
+				min3=floor(min3+(max3-min3)/2);
 				r=b;
 				printf(" %d %d %d %f", max1,max2,max3,r)
 				RES = [RES; r ,max1,max2,max3];
@@ -171,7 +164,7 @@ bestPix=resSort(1:120);
 
 
 
-save dataSetTP3ThreeAlgoTest6.dat RES res_app res_test
+save dataSetTP3DataTest4.dat RES res_app res_test
 
 %% Feature selection
 %% Courbe / Principe, comment vous avez fait vos choix ?

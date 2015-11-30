@@ -2,8 +2,7 @@ clear all
 close all
 
 source "pmc.m";
-load "dataSetTP1.dat"
-load "dataInvNormRandDiscri.dat"
+load "dataTest2.dat"
 
 res=sortrows(RES, -3);
 
@@ -24,6 +23,6 @@ for i=0.01:0.001:0.04
 
 	RES = [RES; [i, ErrorRateApp, ErrorRateTest]];
 
-	save Find_pas_0-01_0-001_0-04.dat RES
+	save Find_pas_0-01_0-001_0-06.dat RES
 
 endfor

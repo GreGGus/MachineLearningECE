@@ -258,6 +258,7 @@ for i=1:nbclasses
 	end;
 end;
 
+
 function [X,Y] = randomize_data(X,Y,n)
 for i=1:n
   id = ceil(rand*size(Y,1));
@@ -269,4 +270,15 @@ for i=1:n
   Y(id,:) = Y(id2,:);
   Y(id2,:) = temp;
 end
-end;
+endfunction;
+
+function [X] = normalizeData(x)
+	X=x/max(max(x));
+endfunction;
+
+function [Xapp,Yapp,Xtest,Ytest] = invert(xapp,yapp,xtest,ytest)
+	Xapp=xtest;
+	Yapp=ytest;
+	Xtest=xapp;
+	Ytest=yapp;
+endfunction;

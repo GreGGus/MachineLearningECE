@@ -1,0 +1,24 @@
+# Created by Octave 3.8.1, Mon Nov 30 02:41:37 2015 CET <hitch@hitch-GA-MA790XT-UD4P>
+# name: RES
+# type: matrix
+# rows: 5
+# columns: 4
+ 0.2 1 1 1
+ 0.37 50 1 50
+ 0.9 37 25 50
+ 0.92 43 25 37
+ 0.89 40 23 37
+
+
+# name: res_app
+# type: matrix
+# rows: 0
+# columns: 0
+
+
+# name: res_test
+# type: matrix
+# rows: 0
+# columns: 0
+
+
