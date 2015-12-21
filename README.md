@@ -31,4 +31,4 @@ plotData
 
 
 
-PORTIER Grégoire - SYOEN Louis
+PORTIER Grégoire
